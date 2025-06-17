@@ -1,3 +1,6 @@
 [submodule "Noble Engine"]
 	path = source/libraries/noble
 	url = https://github.com/NobleRobot/NobleEngine.git
+[submodule "source/libraries/playline"]
+	path = source/libraries/playline
+	url = https://github.com/pappleby/playline.git

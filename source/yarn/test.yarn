@@ -1,0 +1,108 @@
+title: Intro
+---
+More portable vaporware?
+Heck yeah!
+This time on the playdate!
+<<jump DemoSelect>>
+===
+
+title: DemoSelect
+---
+
+-> Options Test
+    <<jump OptionsTest>>
+-> Markup Test
+    <<jump MarkupTest>>
+-> Command Test (warning - broken)
+    <<jump CommandTest>>
+-> Expression Test
+    <<jump ExpressionTest>>    
+-> Detour Test
+    <<jump DetourTest>>
+
+<<jump DemoSelect>>
+
+===
+
+
+title: OptionsTest
+---
+This is an options test.
+-> Option 1
+    This is option 1.
+-> Option {1 + 1}
+    This is option 2.
+-> Option {$test_variable}
+    This is option {$test_variable}.
+<<jump DemoSelect>>
+===
+
+title: MarkupTest
+---
+This is a test of markup
+This has some tags #todo
+did it work? #anothertag:3
+Is this [bold] bold [/bold]?
+someguy: Here's a character line. 
+Is this [italic] italic [/italic]?
+
+<<jump DemoSelect>>
+===
+
+title: CommandTest
+---
+Let's see if commands work.
+First a built-in command!
+<<wait  15>>
+Did that work?
+How about with static arguments?
+<<test_command 1 2 3>>
+Or with math arguaments?
+<<test_command {1 + 2} {3 * 4} {5 / 2}>>
+
+How about with a variable?
+<<declare $test_variable = 42>>
+<<test_command {$test_variable}>>
+How about one with some escape characters?
+<<test_command "This is a \"test blag\" " "with some" "'escape' characters">>
+Still works??
+????!
+<<jump DemoSelect>>
+===
+ 
+title: ExpressionTest
+---
+1 + 2 = {1 + 2}
+1 - 2 = {1 - 2}
+1.5 ** 3 = {1.5 * 3}
+4 / 2 = {4 / 2}
+3 % 2 = {3 % 2}
+1 > 2 = {1 > 2}
+1 < 2 = {1 < 2}
+1 >= 2 = {1 >= 2}
+1 <= 2 = {1 <= 2}
+1 is 4 = {1 is 4}
+"test" eq "blag" = {"test" eq "blag"}
+"a" + "b" = {"a" + "b"}
+4 neq 5 = {4 neq 5}
+true or false = {true or false}
+true xor false = {true xor false}
+not true = {not true }
+true and false = {true and false}
+
+<<jump DemoSelect>>
+===
+
+
+title: DetourTest
+---
+I'm about to detour
+<<detour DetourTestPt2>>
+Back from the detour!
+<<jump DemoSelect>>
+===
+
+title: DetourTestPt2
+---
+I'm inside the detour.
+===
