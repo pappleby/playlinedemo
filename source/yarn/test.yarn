@@ -52,8 +52,8 @@ Is this [italic] italic [/italic]?
 title: CommandTest
 ---
 Let's see if commands work.
-First a built-in command!
-<<wait  15>>
+First let's try waiting for 5 seconds
+<<wait  5>>
 Did that work?
 How about with static arguments?
 <<test_command 1 2 3>>
