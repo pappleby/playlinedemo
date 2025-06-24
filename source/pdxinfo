@@ -1,7 +1,7 @@
-name=testo
-author=A Lovely Developer
-description=This is a Noble Engine game.
-bundleID=com.yourdomain.GameName
+name=PlayLine WIP
+author=Peter Appleby
+description=This is a WIP demo of playline
+bundleID=dev.pappleby.playlinedemo
 version=0.0.1
 buildNumber=1
 imagePath=assets/launcher/
