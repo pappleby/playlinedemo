@@ -13,7 +13,7 @@ title: DemoSelect
     <<jump OptionsTest>>
 -> Markup Test (wip)
     <<jump MarkupTest>>
--> Command Test (warning - broken)
+-> Command Test (wip)
     <<jump CommandTest>>
 -> Expression Test
     <<jump ExpressionTest>>    
@@ -40,33 +40,34 @@ This is an options test.
 title: MarkupTest
 ---
 This is a test of markup
-This has some tags #todo
-did it work? #anothertag:3
-Is this [bold] bold [/bold]?
+Is this [bold]bold[/bold]?
+Is this [italic]italic[/italic]?
 someguy: Here's a character line. 
-Is this [italic] italic [/italic]?
-
+This has a tag #todo
+This has a tag with a value #anothertag:3
 <<jump DemoSelect>>
 ===
 
 title: CommandTest
 ---
 Let's see if commands work.
-First let's try waiting for 5 seconds
+Press [italic]A[/italic] to wait for 5 seconds
 <<wait  5>>
 Did that work?
-How about with static arguments?
+Now let's try some custom commands
+(see console for output)
+Static arguments test
 <<test_command 1 2 3>>
-Or with math arguaments?
+Math arguments test
 <<test_command {1 + 2} {3 * 4} {5 / 2}>>
-
-How about with a variable?
+Variable argument test
 <<declare $test_variable = 42>>
 <<test_command {$test_variable}>>
-How about one with some escape characters?
-<<test_command "This is a \"test blag\" " "with some" "'escape' characters">>
-Still works??
-????!
+string arguments test
+<<test_command "This is a test string" "Part 2">>
+string argumentment with escape characters test
+<<test_command "This is a \"test string\" " "with some" "'escape' characters">>
+neat!
 <<jump DemoSelect>>
 ===
  
