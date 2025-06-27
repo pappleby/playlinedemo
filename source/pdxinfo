@@ -3,6 +3,6 @@ author=Peter Appleby
 description=This is a WIP demo of playline
 bundleID=dev.pappleby.playlinedemo
 version=0.0.1
-buildNumber=1
+buildNumber=2
 imagePath=assets/launcher/
 launchSoundPath=assets/launcher/sound.wav
