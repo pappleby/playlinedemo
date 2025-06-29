@@ -43,6 +43,7 @@ This is a test of markup
 Hey look! [plural value={1} one="A pie" other="Some pies" /]!
 Hey look! [plural value={2} one="A pie" other="Some pies" /]!
 I just baked [plural value={3} one="a pie" other="% pies" /]!
+Selecting [select value={1} 1="option %" 2="option 2" /]!
 Is this [bold]bold[/bold]?
 Is this [italic]italic[/italic]?
 someguy: Here's a character line. 
