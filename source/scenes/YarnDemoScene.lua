@@ -61,15 +61,17 @@ function scene:init()
     local thisStory = self
     self.menu = Noble.Menu.new(false, Noble.Text.ALIGN_LEFT, false, Graphics.kColorWhite, 8, 6, 2)
     story:SetNode("Intro")
-    story:SetLineHandler(function(...)
-        local line = story.DefaultLineHandler(...)
-        if line then
-            thisStory:clearMenu()
-            thisStory.menu:addItem(line)
-            thisStory.menu:activate()
-            Noble.Input.setHandler(dialogueInputHandler)
+    story:AddDialoguePresenter({
+        RunLine = function(_, lineInfo)
+            local line = lineInfo.text
+            if line then
+                thisStory:clearMenu()
+                thisStory.menu:addItem(line)
+                thisStory.menu:activate()
+                Noble.Input.setHandler(dialogueInputHandler)
+            end
         end
-    end)
+    })
     story:SetOptionsHandler(function(...)
         local options = story.DefaultOptionsHandler(...)
         if options then
