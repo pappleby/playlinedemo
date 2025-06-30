@@ -3,9 +3,9 @@
   "sourceFiles": [
     "**/*.yarn"
   ],
-  "excludeFiles": [],
+  "excludeFiles": ["./builds/**"],
   "localisation": {},
   "baseLanguage": "en",
   "compilerOptions": {},
-  "definitionsFiles": []
+  "definitions": "test.ysls.json"
 }

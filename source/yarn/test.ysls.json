@@ -1,0 +1,14 @@
+{
+    "Commands": [{
+        "DefinitionName": "test_command",
+        "YarnName": "test_command",
+        "Language": "lua",
+        "Parameters": [{
+            "Name": "param",
+            "Type": "any",
+            "IsParamsArray": true
+        }],
+        "Signature": "test_command(param: any...)" 
+    }],
+    "Functions": []
+}
