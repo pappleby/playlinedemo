@@ -11,42 +11,48 @@ local dialogueInputHandler = {
         story:Continue()
     end
 }
+local createDialogueInputHandler = function(onA)
+    return {
+        AButtonDown = onA
+    }
+end
+
 function scene:setValues()
-	self.background = Graphics.image.new("assets/images/background2")
+    self.background = Graphics.image.new("assets/images/background2")
 
-	self.color1 = Graphics.kColorBlack
-	self.color2 = Graphics.kColorWhite
+    self.color1 = Graphics.kColorBlack
+    self.color2 = Graphics.kColorWhite
 
-	self.menu = nil
-	self.sequence = nil
+    self.menu = nil
+    self.sequence = nil
 
-	self.menuX = 15
+    self.menuX = 15
 
-	self.menuYFrom = -50
-	self.menuY = 15
-	self.menuYTo = 240
+    self.menuYFrom = -50
+    self.menuY = 15
+    self.menuYTo = 240
     local selfScene = self
-    self.menuInputHandler =  {
-            upButtonDown = function()
-                selfScene.menu:selectPrevious()
-            end,
-            downButtonDown = function()
+    self.menuInputHandler = {
+        upButtonDown = function()
+            selfScene.menu:selectPrevious()
+        end,
+        downButtonDown = function()
+            selfScene.menu:selectNext()
+        end,
+        cranked = function(change, acceleratedChange)
+            crankTick = crankTick + change
+            if (crankTick > 30) then
+                crankTick = 0
                 selfScene.menu:selectNext()
-            end,
-            cranked = function(change, acceleratedChange)
-                crankTick = crankTick + change
-                if (crankTick > 30) then
-                    crankTick = 0
-                    selfScene.menu:selectNext()
-                elseif (crankTick < -30) then
-                    crankTick = 0
-                    selfScene.menu:selectPrevious()
-                end
-            end,
-            AButtonDown = function()
-                selfScene.menu:click()
+            elseif (crankTick < -30) then
+                crankTick = 0
+                selfScene.menu:selectPrevious()
             end
-        }
+        end,
+        AButtonDown = function()
+            selfScene.menu:click()
+        end
+    }
 end
 
 function scene:clearMenu()
@@ -55,6 +61,7 @@ function scene:clearMenu()
         self.menu:removeItem()
     end
 end
+
 function scene:init()
     scene.super.init(self)
     self:setValues()
@@ -68,7 +75,19 @@ function scene:init()
                 thisStory:clearMenu()
                 thisStory.menu:addItem(line)
                 thisStory.menu:activate()
-                Noble.Input.setHandler(dialogueInputHandler)
+                return coroutine.create(function(lineCancellationToken)
+                    Noble.Input.setHandler(createDialogueInputHandler(function()
+                        lineCancellationToken.HurryUpToken = true
+                    end))
+                    local startTime = playdate.getCurrentTimeMilliseconds()
+                    local ms = 2000
+                    while (not lineCancellationToken.HurryUpToken
+                            and not lineCancellationToken.NextLineToken
+                            and playdate.getCurrentTimeMilliseconds() - startTime) < (ms) do
+                        coroutine.yield()
+                    end
+                    print("Waited for " .. (playdate.getCurrentTimeMilliseconds() - startTime) .. " seconds.")
+                end)
             end
         end
     })
@@ -77,9 +96,9 @@ function scene:init()
         if options then
             thisStory:clearMenu()
             for i, option in ipairs(options) do
-                print ("Adding option: ".. i .. " " .. option.text)
+                print("Adding option: " .. i .. " " .. option.text)
                 thisStory.menu:addItem(option.text, function()
-                    print ("Selected option: ".. i .. " " .. option.text)
+                    print("Selected option: " .. i .. " " .. option.text)
                     -- Select the option in the story
                     story:SetSelectedOption(option.index)
                     thisStory:clearMenu()
@@ -87,7 +106,7 @@ function scene:init()
                     Noble.Input.setHandler(dialogueInputHandler)
                     story:Continue()
                 end)
-                print ("Added option: ".. i .. " " .. option.text)
+                print("Added option: " .. i .. " " .. option.text)
             end
             thisStory.menu:activate()
             Noble.Input.setHandler(self.menuInputHandler)
@@ -97,8 +116,6 @@ function scene:init()
     self.inputHandler = dialogueInputHandler
 end
 
-
-
 function scene:update()
     scene.super.update(self)
     story:ProgressCoroutine()
@@ -106,16 +123,15 @@ function scene:update()
         Graphics.setColor(self.color1)
         Graphics.setDitherPattern(0.2, Graphics.image.kDitherTypeScreen)
         Graphics.fillRoundRect(self.menuX, self.menuY, self.menu.width + 25, 40 * #self.menu.itemNames, 15)
-        self.menu:draw(self.menuX+15, self.menuY+8)
+        self.menu:draw(self.menuX + 15, self.menuY + 8)
     end
     Graphics.setColor(Graphics.kColorBlack)
 end
 
 function scene:enter()
-	scene.super.enter(self)
+    scene.super.enter(self)
 end
 
 function scene:start()
-	scene.super.start(self)
+    scene.super.start(self)
 end
-
