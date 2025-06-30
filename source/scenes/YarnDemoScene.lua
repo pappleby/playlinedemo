@@ -113,7 +113,6 @@ function scene:init()
         end
     end)
     story:Continue()
-    self.inputHandler = dialogueInputHandler
 end
 
 function scene:update()
