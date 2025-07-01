@@ -1,5 +1,8 @@
+import "CoreLibs/graphics"
 import 'libraries/playline/templates/story.lua'
+import 'libraries/playline/templates/typewritterDialoguePresenter.lua'
 
+local gfx <const> = playdate.graphics
 local story = MyStory
 
 YarnDemoScene = {}
@@ -73,27 +76,23 @@ function scene:init()
             local line = lineInfo.text
             if line then
                 thisStory:clearMenu()
-                thisStory.menu:addItem(line)
-                thisStory.menu:activate()
+                thisStory.menu:deactivate()
+                thisStory.lineImageSprite:setVisible(true)
                 return coroutine.create(function(lineCancellationToken)
                     Noble.Input.setHandler(createDialogueInputHandler(function()
+                        if lineCancellationToken.HurryUpToken then
+                            lineCancellationToken.NextLineToken = true
+                        end
                         lineCancellationToken.HurryUpToken = true
                     end))
-                    local startTime = playdate.getCurrentTimeMilliseconds()
-                    local ms = 2000
-                    while (not lineCancellationToken.HurryUpToken
-                            and not lineCancellationToken.NextLineToken
-                            and playdate.getCurrentTimeMilliseconds() - startTime) < (ms) do
+                    while not lineCancellationToken.NextLineToken do
                         coroutine.yield()
                     end
-                    print("Waited for " .. (playdate.getCurrentTimeMilliseconds() - startTime) .. " seconds.")
                 end)
             end
-        end
-    })
-    story:SetOptionsHandler(function(...)
-        local options = story.DefaultOptionsHandler(...)
-        if options then
+        end,
+        RunOptions = function(_, options)
+            thisStory.lineImageSprite:setVisible(false)
             thisStory:clearMenu()
             for i, option in ipairs(options) do
                 print("Adding option: " .. i .. " " .. option.text)
@@ -103,16 +102,22 @@ function scene:init()
                     story:SetSelectedOption(option.index)
                     thisStory:clearMenu()
                     thisStory.menu:deactivate()
-                    Noble.Input.setHandler(dialogueInputHandler)
                     story:Continue()
                 end)
                 print("Added option: " .. i .. " " .. option.text)
             end
             thisStory.menu:activate()
             Noble.Input.setHandler(self.menuInputHandler)
-        end
-    end)
-    story:Continue()
+        end,
+    })
+    local textImage = gfx.image.new(380, 50, gfx.kColorWhite)
+
+    local typeWritter = Playline.Defaults.TypewritterDialoguePresenter(textImage)
+    story:AddDialoguePresenter(typeWritter)
+    self.lineImageSprite = gfx.sprite.new(textImage)
+    self.lineImageSprite:setCenter(0, 1)
+    self.lineImageSprite:moveTo(20, 220)
+    self.lineImageSprite:add()
 end
 
 function scene:update()
@@ -133,4 +138,5 @@ end
 
 function scene:start()
     scene.super.start(self)
+    story:Continue()
 end
