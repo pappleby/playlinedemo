@@ -1,6 +1,9 @@
+import "CoreLibs/object"
 import "CoreLibs/graphics"
 import 'libraries/playline/templates/story.lua'
 import 'libraries/playline/templates/typewritterDialoguePresenter.lua'
+import 'libraries/playline/templates/pauseActionMarkup.lua'
+import 'libraries/playline/templates/blipActionMarkup.lua'
 
 local gfx <const> = playdate.graphics
 local story = MyStory
@@ -112,7 +115,11 @@ function scene:init()
     })
     local textImage = gfx.image.new(380, 50, gfx.kColorWhite)
 
-    local typeWritter = Playline.Defaults.TypewritterDialoguePresenter(textImage)
+    local typeWritter = Playline.Defaults.TypewritterDialoguePresenter(textImage, nil, 15)
+    local pauseHandler = Playline.Defaults.PauseActionMarkupHandler(250, true)
+    local blipHandler = Playline.Defaults.BlipActionMarkupHandler("assets/samples/bahblip.wav")
+    typeWritter:AddActionMarkupHandler(pauseHandler)
+    typeWritter:AddActionMarkupHandler(blipHandler)
     story:AddDialoguePresenter(typeWritter)
     self.lineImageSprite = gfx.sprite.new(textImage)
     self.lineImageSprite:setCenter(0, 1)
