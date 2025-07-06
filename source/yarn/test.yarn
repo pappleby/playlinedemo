@@ -1,4 +1,5 @@
 title: Intro
+position: 289,-704
 ---
 More portable vaporware?
 Heck yeah!
@@ -7,37 +8,36 @@ This time on the playdate!
 ===
 
 title: DemoSelect
+position: 178,-457
+color: orange
 ---
 <<once>>
 Welcome to the demo select!
 <<endonce>>
 
 -> Node Group Test
-    <<jump NodeGroupTest>>
+    <<detour NodeGroupTest>>
 -> Smart Variable Test
-    <<jump SmartVariableTest>>
+    <<detour SmartVariableTest>>
 -> Text Layout Test
-    <<jump TextLayout>>
+    <<detour TextLayout>>
 -> Markup Test (wip)
-    <<jump MarkupTest>>
+    <<detour MarkupTest>>
 -> Command Test (wip)
-    <<jump CommandTest>>
+    <<detour CommandTest>>
 -> Expression Test
-    <<jump ExpressionTest>>    
--> Detour Test
-    <<jump DetourTest>>
-
+    <<detour ExpressionTest>>    
 <<jump DemoSelect>>
-
 ===
 
 title: TextLayout
+position: 859,-457
 ---
 This is text that is very long and will wrap around to the next line. Can you even believe how long it?
-<<jump DemoSelect>>
 ===
 
 title: MarkupTest
+position: 863,-290
 ---
 This is a test of markup
 Midline pause for [pause=300 /] dramatic [pause /] effect.
@@ -50,10 +50,10 @@ Is this [italic]italic[/italic]?
 someguy: Here's a character line. 
 This has a tag #todo
 This has a tag with a value #anothertag:3
-<<jump DemoSelect>>
 ===
 
 title: CommandTest
+position: 863,-124
 ---
 Let's see if commands work.
 Press [italic]A[/italic] to wait for 5 seconds
@@ -73,10 +73,10 @@ string arguments test
 string argumentment with escape characters test
 <<test_command "This is a \"test string\" " "with some" "'escape' characters">>
 neat!
-<<jump DemoSelect>>
 ===
  
 title: ExpressionTest
+position: 864,54
 ---
 1 + 2 = {1 + 2}
 1 - 2 = {1 - 2}
@@ -96,65 +96,52 @@ true xor false = {true xor false}
 not true = {not true }
 true and false = {true and false}
 
-<<jump DemoSelect>>
 ===
 
-
-title: DetourTest
----
-I'm about to detour
-<<detour DetourTestPt2>>
-Back from the detour!
-<<jump DemoSelect>>
-===
-
-title: DetourTestPt2
----
-I'm inside the detour.
-===
 
 title: SmartVariableTest
+position: 862,-612
 ---
 This is a test of smart variables.
 <<declare $smartvarsimple = 1 + 2>>
 <<declare $smartvarcomplex = 4 + $smartvarsimple>>
 $smartvarsimple = 1 + 2 = {$smartvarsimple}.
 $smartvarcomplex = 4 + $smartvarsimple = {$smartvarcomplex}.
-<<jump DemoSelect>>
+
 ===
 
 title: NodeGroupTest
 when: once
+position: 36,-5
 ---
 Once: Run this test a couple times to see different nodes in the node group be selected based on the saliency strategy.
-<<jump DemoSelect>>
 ===
 
 title: NodeGroupTest
 when: always
+position: 299,-4
 ---
 <<declare $nodeVarTest = 1>>
 Always: After another visit, nodes with more complex conditions will start passing.
 <<set $nodeVarTest to $nodeVarTest + 1>>
-<<jump DemoSelect>>
 ===
 
 title: NodeGroupTest
 when: $smartvarsimple > 2 
 when: $nodeVarTest > 1
+position: 299,172
 ---
 <<declare $nodeVarTestA = 1>>
 2 Conditions A: This has been seen {$nodeVarTestA} times
 <<set $nodeVarTestA to $nodeVarTestA + 1>>
-<<jump DemoSelect>>
 ===
 
 title: NodeGroupTest
 when: $smartvarsimple > 2 
 when: $nodeVarTest > 1
+position: 41,175
 ---
 <<declare $nodeVarTestB = 1>>
 2 Conditions B: This has been seen {$nodeVarTestB} times
 <<set $nodeVarTestB to $nodeVarTestB + 1>>
-<<jump DemoSelect>>
 ===
