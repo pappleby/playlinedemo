@@ -13,11 +13,6 @@ YarnDemoScene = {}
 class('YarnDemoScene').extends(NobleScene)
 local scene = YarnDemoScene
 local crankTick = 0
-local dialogueInputHandler = {
-    AButtonDown = function()
-        story:Continue()
-    end
-}
 local createDialogueInputHandler = function(onA)
     return {
         AButtonDown = onA
@@ -74,6 +69,7 @@ function scene:init()
     self:setValues()
     local thisStory = self
     self.menu = Noble.Menu.new(false, Noble.Text.ALIGN_LEFT, false, Graphics.kColorWhite, 8, 6, 2)
+    
     story:SetNode("Intro")
     story:AddDialoguePresenter({
         RunLine = function(_, lineInfo)
@@ -133,10 +129,9 @@ function scene:update()
 
     story:ProgressCoroutine()
     if self.menu:isActive() then
-        Graphics.setColor(self.color1)
-        Graphics.setDitherPattern(0.2, Graphics.image.kDitherTypeScreen)
-        Graphics.fillRoundRect(self.menuX, self.menuY, self.menu.width + 25, 40 * #self.menu.itemNames, 15)
-        self.menu:draw(self.menuX + 15, self.menuY + 8)
+        self.menu:activate()
+        Graphics.fillRoundRect(self.menuX, self.menuY, self.menu.width + 25, 31.5 * #self.menu.itemNames, 15)
+        self.menu:draw(self.menuX + 15, self.menuY + 8) 
     end
     Graphics.setColor(Graphics.kColorBlack)
 end
@@ -151,7 +146,6 @@ function scene:start()
 end
 
 function scene:drawBackground()
-    if self.bg then
-        self.bg:draw(0, 0)
-    end
+	scene.super.drawBackground(self)
+	self.background:draw(0, 0)
 end
