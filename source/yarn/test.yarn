@@ -8,6 +8,10 @@ This time on the playdate!
 
 title: DemoSelect
 ---
+<<once>>
+Welcome to the demo select!
+<<endonce>>
+
 -> Node Group Test
     <<jump NodeGroupTest>>
 -> Smart Variable Test
