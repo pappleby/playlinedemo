@@ -8,9 +8,12 @@ This time on the playdate!
 
 title: DemoSelect
 ---
-
--> Options Test
-    <<jump OptionsTest>>
+-> Node Group Test
+    <<jump NodeGroupTest>>
+-> Smart Variable Test
+    <<jump SmartVariableTest>>
+-> Text Layout Test
+    <<jump TextLayout>>
 -> Markup Test (wip)
     <<jump MarkupTest>>
 -> Command Test (wip)
@@ -24,16 +27,9 @@ title: DemoSelect
 
 ===
 
-
-title: OptionsTest
+title: TextLayout
 ---
-This is an options test.
--> Option 1
-    This is option 1.
--> Option {1 + 1}
-    This is option 2.
--> Option {$test_variable}
-    This is option {$test_variable}.
+This is text that is very long and will wrap around to the next line. Can you even believe how long it?
 <<jump DemoSelect>>
 ===
 
@@ -111,4 +107,50 @@ Back from the detour!
 title: DetourTestPt2
 ---
 I'm inside the detour.
+===
+
+title: SmartVariableTest
+---
+This is a test of smart variables.
+<<declare $smartvarsimple = 1 + 2>>
+<<declare $smartvarcomplex = 4 + $smartvarsimple>>
+$smartvarsimple = 1 + 2 = {$smartvarsimple}.
+$smartvarcomplex = 4 + $smartvarsimple = {$smartvarcomplex}.
+<<jump DemoSelect>>
+===
+
+title: NodeGroupTest
+when: once
+---
+Once: Run this test a couple times to see different nodes in the node group be selected based on the saliency strategy.
+<<jump DemoSelect>>
+===
+
+title: NodeGroupTest
+when: always
+---
+<<declare $nodeVarTest = 1>>
+Always: After another visit, nodes with more complex conditions will start passing.
+<<set $nodeVarTest to $nodeVarTest + 1>>
+<<jump DemoSelect>>
+===
+
+title: NodeGroupTest
+when: $smartvarsimple > 2 
+when: $nodeVarTest > 1
+---
+<<declare $nodeVarTestA = 1>>
+2 Conditions A: This has been seen {$nodeVarTestA} times
+<<set $nodeVarTestA to $nodeVarTestA + 1>>
+<<jump DemoSelect>>
+===
+
+title: NodeGroupTest
+when: $smartvarsimple > 2 
+when: $nodeVarTest > 1
+---
+<<declare $nodeVarTestB = 1>>
+2 Conditions B: This has been seen {$nodeVarTestB} times
+<<set $nodeVarTestB to $nodeVarTestB + 1>>
+<<jump DemoSelect>>
 ===

@@ -1,5 +1,6 @@
 import "CoreLibs/object"
 import "CoreLibs/graphics"
+import 'CoreLibs/nineslice'
 import 'libraries/playline/templates/story.lua'
 import 'libraries/playline/templates/typewritterDialoguePresenter.lua'
 import 'libraries/playline/templates/pauseActionMarkup.lua'
@@ -113,9 +114,9 @@ function scene:init()
             Noble.Input.setHandler(self.menuInputHandler)
         end,
     })
-    local textImage = gfx.image.new(380, 50, gfx.kColorWhite)
-
-    local typeWritter = Playline.Defaults.TypewritterDialoguePresenter(textImage, nil, 15)
+    local textImage = gfx.image.new(380, 60, gfx.kColorWhite)
+    local textBackground = gfx.nineSlice.new("libraries/playline/assets/images/dialogue9SliceExample.png", 5, 5, 26, 26)
+    local typeWritter = Playline.Defaults.TypewritterDialoguePresenter(textImage, nil, 15, textBackground)
     local pauseHandler = Playline.Defaults.PauseActionMarkupHandler(250, true)
     local blipHandler = Playline.Defaults.BlipActionMarkupHandler("assets/samples/bahblip.wav")
     typeWritter:AddActionMarkupHandler(pauseHandler)
@@ -123,12 +124,13 @@ function scene:init()
     story:AddDialoguePresenter(typeWritter)
     self.lineImageSprite = gfx.sprite.new(textImage)
     self.lineImageSprite:setCenter(0, 1)
-    self.lineImageSprite:moveTo(20, 220)
+    self.lineImageSprite:moveTo(10, 230)
     self.lineImageSprite:add()
 end
 
 function scene:update()
     scene.super.update(self)
+
     story:ProgressCoroutine()
     if self.menu:isActive() then
         Graphics.setColor(self.color1)
@@ -146,4 +148,10 @@ end
 function scene:start()
     scene.super.start(self)
     story:Continue()
+end
+
+function scene:drawBackground()
+    if self.bg then
+        self.bg:draw(0, 0)
+    end
 end
