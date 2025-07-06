@@ -2,7 +2,9 @@ This is a wip demo of [Playline](https://github.com/pappleby/playline) - a wip p
 
 It uses [Noble Engine](https://github.com/NobleRobot/NobleEngine) to help get things up and running.
 
-Sideload the [latest release](https://github.com/pappleby/playlinedemo/releases/tag/v0.0.4-wip) to try it out on real hardware!
+Sideload the [latest release](https://github.com/pappleby/playlinedemo/releases/tag/v0.0.5-wip) to try it out on real hardware!
+
+[Demo 2](https://github.com/user-attachments/assets/e996c333-5abf-47a8-b6e1-4ceb22e3d13e)
 
 [Demo video](https://github.com/user-attachments/assets/02b27826-914b-43c8-a82c-4f872aba0c4d)
 
