@@ -50,6 +50,8 @@ Is this [italic]italic[/italic]?
 someguy: Here's a character line. 
 This has a tag #todo
 This has a tag with a value #anothertag:3
+This is a shadowed line #line:shadowtest #tagtest
+This is a shadowed line #shadow:shadowtest #tagtest2
 ===
 
 title: CommandTest
