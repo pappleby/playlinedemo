@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "playline.console": {
+      "version": "0.0.12",
+      "commands": [
+        "plc"
+      ],
+      "rollForward": false
+    }
+  }
+}

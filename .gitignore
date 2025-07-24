@@ -39,9 +39,9 @@ luac.out
 *.x86_64
 *.hex
 
-.vscode
+#.vscode
 
 builds/
 
 source/libraries/noble/docs/
-source/assets/data/playline/
+#source/assets/data/playline/

@@ -4,3 +4,6 @@
 [submodule "source/libraries/playline"]
 	path = source/libraries/playline
 	url = https://github.com/pappleby/playline.git
+[submodule "source/libraries/playdate-luacats"]
+	path = source/libraries/playdate-luacats
+	url = https://github.com/notpeter/playdate-luacats.git
